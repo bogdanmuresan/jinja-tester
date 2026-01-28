@@ -24,7 +24,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    mode = "(with Ansible)" if ANSIBLE_AVAILABLE else ""
+    mode = "(with Ansible Filters)" if ANSIBLE_AVAILABLE else ""
     return render_template('index.html', mode=mode)
 
 @app.route('/render', methods=['POST'])

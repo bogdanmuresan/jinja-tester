@@ -1,36 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Jinja2 Tester</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jinja2 Template Tester - Online Jinja2 Renderer with Ansible Filters</title>
+    <meta name="description" content="Free online Jinja2 template tester and renderer with Ansible filter support. Test your Jinja2 templates with YAML data instantly in your browser.">
+    <meta name="keywords" content="jinja2, template, renderer, tester, ansible, yaml, python, online tool">
+    <meta name="author" content="Bogdan Leon Muresan">
+    <link rel="canonical" href="https://jinja-tester.fly.dev/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jinja-tester.fly.dev/">
+    <meta property="og:title" content="Jinja2 Template Tester - Online Jinja2 Renderer">
+    <meta property="og:description" content="Free online Jinja2 template tester and renderer with Ansible filter support. Test your Jinja2 templates with YAML data instantly.">
+    <meta property="og:site_name" content="Jinja2 Tester">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://jinja-tester.fly.dev/">
+    <meta name="twitter:title" content="Jinja2 Template Tester - Online Jinja2 Renderer">
+    <meta name="twitter:description" content="Free online Jinja2 template tester and renderer with Ansible filter support. Test your Jinja2 templates with YAML data instantly.">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Jinja2 Template Tester",
+        "description": "Free online Jinja2 template tester and renderer with Ansible filter support",
+        "url": "https://jinja-tester.fly.dev/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Bogdan Muresan",
+            "url": "https://bogdanmuresan.ro/"
+        }
+    }
+    </script>
+
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
+        <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Silkie chicken logo">
+            <!-- Silkie chicken body (fluffy round shape) -->
+            <ellipse cx="50" cy="60" rx="25" ry="20" fill="#ffd700" opacity="0.9"/>
+            <!-- Head (fluffy) -->
+            <circle cx="50" cy="35" r="15" fill="#ffd700"/>
+            <!-- Fluffy crest on top -->
+            <circle cx="45" cy="25" r="8" fill="#ffd700" opacity="0.8"/>
+            <circle cx="50" cy="22" r="7" fill="#ffd700" opacity="0.8"/>
+            <circle cx="55" cy="25" r="8" fill="#ffd700" opacity="0.8"/>
+            <!-- Eye -->
+            <circle cx="52" cy="33" r="2" fill="#333"/>
+            <!-- Beak -->
+            <path d="M 58 35 L 65 35 L 58 38 Z" fill="#ffb700"/>
+            <!-- Legs -->
+            <line x1="43" y1="75" x2="43" y2="85" stroke="#ffb700" stroke-width="2"/>
+            <line x1="57" y1="75" x2="57" y2="85" stroke="#ffb700" stroke-width="2"/>
+            <!-- Fluffy bottom feathers -->
+            <circle cx="40" cy="70" r="8" fill="#ffd700" opacity="0.7"/>
+            <circle cx="60" cy="70" r="8" fill="#ffd700" opacity="0.7"/>
+        </svg>
         <h1>Jinja2 Template Tester {{ mode }}</h1>
         <div class="grid">
             <div>
                 <h3>Template:</h3>
-                <textarea id="template">Hello {{ "{{ name }}" }}!
+                <textarea id="template" aria-label="Jinja2 template input">Hello {{ "{{ user.name | upper }}" }}!
+
+Your role: {{ "{{ user.role | default('guest') }}" }}
+
+{{ "{% if user.active %}" }}
+Items ({{ "{{ items | length }}" }}):
 {{ "{% for item in items %}" }}
-  - {{ "{{ item }}" }}
-{{ "{% endfor %}" }}</textarea>
+  {{ "{{ loop.index }}" }}. {{ "{{ item | capitalize }}" }} - {{ "{{ tags | join(', ') }}" }}
+{{ "{% endfor %}" }}
+{{ "{% endif %}" }}
+
+Filtered list: {{ "{{ numbers | select('odd') | list }}" }}</textarea>
             </div>
             <div>
                 <h3>Data (YAML):</h3>
-                <textarea id="data">name: World
+                <textarea id="data" aria-label="YAML data input">user:
+  name: world
+  role: admin
+  active: true
+
 items:
-  - a
-  - b
-  - c</textarea>
+  - apple
+  - banana
+  - cherry
+
+tags:
+  - fresh
+  - organic
+  - local
+
+numbers:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5</textarea>
             </div>
         </div>
-        <p>
-            <button onclick="render()">Render</button>
-            <label><input type="checkbox" id="showWhitespace" onchange="toggleWhitespaces()"> Show Whitespace</label>
-        </p>
+        <div class="controls">
+            <button onclick="render()" aria-label="Render template">Render</button>
+        </div>
+        <div class="options">
+            <label>
+                <input type="checkbox" id="showWhitespace" onchange="toggleWhitespaces()" aria-label="Toggle whitespace visibility">
+                <span>Show Whitespace</span>
+            </label>
+        </div>
         <h3>Output:</h3>
-        <div id="output" class="output">Click render...</div>
-        <div class="version">v0.0.3</div>
+        <div id="output" class="output" role="region" aria-live="polite" aria-label="Rendered output">Click render...</div>
+        <div class="footer">
+            <span class="version">v1.0.0</span>
+            <span class="separator">•</span>
+            <a href="https://bogdanmuresan.ro/" target="_blank" rel="noopener">bogdanmuresan.ro</a>
+        </div>
     </div>
     <script src="/static/app.js"></script>
 </body>
