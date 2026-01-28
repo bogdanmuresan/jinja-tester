@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 300px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+.output {
+    background: #f5f5f5;
+    padding: 10px;
+    min-height: 300px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.error {
+    background: #ffebee;
+    color: #c62828;
+}
+
+/* Whitespace visualization */
+.ws_space,
+.ws_tab,
+.ws_newline {
+    position: relative;
+}
+
+.ws_space.ws_vis::before {
+    content: '·';
+    color: #999;
+    position: absolute;
+}
+
+.ws_tab.ws_vis::before {
+    content: '→';
+    color: #999;
+    position: absolute;
+}
+
+.ws_newline.ws_vis::before {
+    content: '↵';
+    color: #999;
+    position: absolute;
+}
+
+label {
+    margin-left: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.version {
+    text-align: center;
+    margin-top: 40px;
+    color: #666;
+    font-size: 12px;
+}
+
+h1 {
+    color: #333;
+}
+
+h3 {
+    margin-top: 0;
+    color: #555;
+}
