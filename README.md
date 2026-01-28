@@ -1,21 +1,26 @@
 # Jinja2 Template Tester
 
-A simple web-based tool for testing Jinja2 templates with YAML data input. Includes support for Ansible filters and whitespace visualization.
+A web-based tool for testing Jinja2 templates with YAML data input. Includes support for Ansible filters, whitespace visualization, and a clean yellow-themed interface with a friendly silkie chicken mascot.
+
+🐔 **Live Demo:** https://jinja-tester.fly.dev/
 
 ## Features
 
 - Live Jinja2 template rendering
-- YAML data input
-- Ansible filters support (optional)
+- YAML data input with complex data structures (dictionaries, lists)
+- Full Ansible filters support
 - Whitespace visualization toggle
-- Clean, split-pane interface
+- Clean, accessible split-pane interface
+- Yellow-themed design with silkie chicken branding
+- SEO optimized with comprehensive meta tags
+- Responsive layout
 
 ## Requirements
 
-- Python 3.8+
+- Python 3.13+
 - Flask
 - PyYAML
-- Ansible (optional, for additional filters)
+- Ansible (for filter support)
 
 ## Running Locally
 
@@ -25,12 +30,10 @@ A simple web-based tool for testing Jinja2 templates with YAML data input. Inclu
 pip install flask pyyaml ansible
 ```
 
-Note: `ansible` is optional. The app will work without it but with fewer available filters.
-
 ### 2. Run the Application
 
 ```bash
-python jinja_tester_simple.py
+python jinja_tester.py
 ```
 
 ### 3. Open in Browser
@@ -74,33 +77,22 @@ The app is configured to:
 3. Click "Render" to see the output
 4. Toggle "Show Whitespace" to visualize spaces, tabs, and newlines
 
-### Example
+## Project Structure
 
-**Template:**
-```jinja2
-Hello {{ name }}!
-{% for item in items %}
-  - {{ item }}
-{% endfor %}
 ```
-
-**Data (YAML):**
-```yaml
-name: World
-items:
-  - a
-  - b
-  - c
-```
-
-**Output:**
-```
-Hello World!
-  - a
-  - b
-  - c
+jinja_tester/
+├── jinja_tester.py          # Main Flask application
+├── templates/
+│   └── index.html           # Main HTML template
+├── static/
+│   ├── style.css            # Styling with yellow theme
+│   ├── app.js              # Whitespace visualization
+│   └── favicon.svg         # Chicken favicon
+├── Dockerfile              # Container configuration
+├── fly.toml               # Fly.io deployment config
+└── README.md
 ```
 
 ## Version
 
-Current version: 0.0.2
+Current version: 1.0.0
