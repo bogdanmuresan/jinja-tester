@@ -6,11 +6,12 @@ WORKDIR /app
 RUN pip install --no-cache-dir flask ansible pyyaml
 
 # Copy application files
-COPY jinja_tester_simple.py .
+COPY jinja_tester.py .
 COPY static/ ./static/
+COPY templates/ ./templates/
 
 # Expose port
 EXPOSE 5002
 
 # Run application
-CMD ["python", "jinja_tester_simple.py"]
+CMD ["python", "jinja_tester.py"]

@@ -1,7 +1,6 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     padding: 20px;
-    margin: 0;
 }
 
 .container {
@@ -93,11 +92,24 @@ label {
     font-size: 12px;
 }
 
-h1 {
-    color: #333;
+/* Whitespace visualization */
+.ws_space, .ws_tab, .ws_newline {
+    position: relative;
 }
 
-h3 {
-    margin-top: 0;
-    color: #555;
+.ws_space.ws_vis::before {
+    content: '·';
+    color: #999;
+    position: absolute;
+}
+
+.ws_tab.ws_vis::before {
+    content: '→';
+    color: #999;
+    position: absolute;
+}
+
+.ws_newline.ws_vis::after {
+    content: '↵';
+    color: #999;
 }

@@ -6,40 +6,37 @@ function classifyWhitespaces(text) {
         const char = text[i];
 
         if ([' ', '\t', '\n'].includes(char)) {
-            // Flush accumulated normal text
+            // Flush normal text
             if (normalText.length > 0) {
                 container.appendChild(document.createTextNode(normalText.join('')));
                 normalText = [];
             }
 
-            // Create span for whitespace character
-            const ws = document.createElement('span');
+            // Create span for whitespace
+            const span = document.createElement('span');
 
             switch (char) {
                 case ' ':
-                    ws.classList.add('ws_space');
-                    ws.textContent = ' ';
-                    container.appendChild(ws);
+                    span.className = 'ws_space';
+                    span.textContent = ' ';
                     break;
                 case '\t':
-                    ws.classList.add('ws_tab');
-                    ws.textContent = '\t';
-                    container.appendChild(ws);
+                    span.className = 'ws_tab';
+                    span.textContent = '\t';
                     break;
                 case '\n':
-                    ws.classList.add('ws_newline');
-                    ws.textContent = ' ';
-                    container.appendChild(ws);
-                    // Also add actual newline for proper line breaks
-                    normalText.push('\n');
+                    span.className = 'ws_newline';
+                    span.textContent = '\n';
                     break;
             }
+
+            container.appendChild(span);
         } else {
             normalText.push(char);
         }
     }
 
-    // Flush remaining normal text
+    // Flush remaining text
     if (normalText.length > 0) {
         container.appendChild(document.createTextNode(normalText.join('')));
     }
@@ -47,11 +44,11 @@ function classifyWhitespaces(text) {
     return container;
 }
 
-function toggleWhitespace() {
-    const showWs = document.getElementById('showWhitespace').checked;
+function toggleWhitespaces() {
+    const showWhitespace = document.getElementById('showWhitespace').checked;
     const wsElements = document.querySelectorAll('.ws_space, .ws_tab, .ws_newline');
 
-    if (showWs) {
+    if (showWhitespace) {
         wsElements.forEach(el => el.classList.add('ws_vis'));
     } else {
         wsElements.forEach(el => el.classList.remove('ws_vis'));
@@ -70,18 +67,16 @@ function render() {
     .then(r => r.json())
     .then(d => {
         const out = document.getElementById('output');
+        out.innerHTML = '';
 
         if (d.error) {
             out.textContent = 'ERROR: ' + d.error;
             out.className = 'output error';
         } else {
-            const processedOutput = classifyWhitespaces(d.output);
+            const renderedHtml = classifyWhitespaces(d.output);
+            out.appendChild(renderedHtml);
             out.className = 'output';
-            out.innerHTML = '';
-            out.appendChild(processedOutput);
-
-            // Apply whitespace visibility if checkbox is checked
-            toggleWhitespace();
+            toggleWhitespaces();
         }
     });
 }
